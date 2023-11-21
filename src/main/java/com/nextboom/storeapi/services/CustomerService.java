@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nextboom.storeapi.entities.Customer;
 import com.nextboom.storeapi.exceptions.NotFoundException;
-import com.nextboom.storeapi.repository.CustomerRepository;
+import com.nextboom.storeapi.repositories.CustomerRepository;
 
 @Service
 public class CustomerService {

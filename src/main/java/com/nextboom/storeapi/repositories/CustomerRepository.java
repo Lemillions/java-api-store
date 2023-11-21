@@ -1,4 +1,4 @@
-package com.nextboom.storeapi.repository;
+package com.nextboom.storeapi.repositories;
 
 import java.util.UUID;
 
