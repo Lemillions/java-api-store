@@ -1,5 +1,6 @@
 package com.nextboom.storeapi.entities;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -11,7 +12,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "db_customer")
-public class Customer {
+public class Customer implements Serializable {
+  private static final long serialVersionUID = 1L;
+  
   @Id
   @Column(unique = true)
   @GeneratedValue(strategy = GenerationType.UUID)
