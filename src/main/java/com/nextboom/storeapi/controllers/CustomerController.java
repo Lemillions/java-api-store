@@ -39,7 +39,7 @@ public class CustomerController {
   public ResponseEntity<Customer> createCustomer(@RequestBody @Valid CustomerDto customerDto) {
     Customer customer = new Customer();
     BeanUtils.copyProperties(customerDto, customer);
-    Customer newCustomer = customerService.save(customer);
+    Customer newCustomer = customerService.create(customer);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(newCustomer);
   }
@@ -47,10 +47,11 @@ public class CustomerController {
   @PutMapping("{id}")
   public ResponseEntity<Customer> updateCustomer(@PathVariable("id") UUID id,
       @RequestBody @Valid CustomerDto customerDto) {
-    Customer customer = customerService.getOne(id);
-
+    Customer customer = new Customer();
     BeanUtils.copyProperties(customerDto, customer);
-    return ResponseEntity.ok(customer);
+    Customer updatedCustomer = customerService.update(id, customer);
+    
+    return ResponseEntity.ok(updatedCustomer);
   }
 
   @DeleteMapping("{id}")

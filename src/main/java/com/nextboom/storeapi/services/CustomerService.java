@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +33,18 @@ public class CustomerService {
     return customers;
   }
 
-  public Customer save(Customer newCustomer) {
+  public Customer create(Customer newCustomer) {
     Customer customer = customerRepository.save(newCustomer);
 
     return customer;
+  }
+
+  public Customer update(UUID customerId, Customer customer) {
+    Customer customerExisting = getOne(customerId);
+    BeanUtils.copyProperties(customer, customerExisting);
+    customerRepository.save(customerExisting);
+
+    return customerExisting;
   }
 
   public Customer delete(UUID customerId) {
