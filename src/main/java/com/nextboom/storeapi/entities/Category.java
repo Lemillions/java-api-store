@@ -1,7 +1,7 @@
 package com.nextboom.storeapi.entities;
 
-import java.io.Serializable;
 import java.util.UUID;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,39 +10,31 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_customer")
-public class Customer implements Serializable {
+@Table(name = "tb_category")
+public class Category implements Serializable {
   private static final long serialVersionUID = 1L;
-  
+
   @Id
-  @Column(unique = true, nullable = false)
+  @Column
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(nullable = false)
+  @Column
   private String name;
 
-  @Column(unique = true, nullable = false)
-  private String email;
+  @ManyToMany(mappedBy = "categories")
+  private List<Product> products = new ArrayList<Product>();
 
-  @Column(nullable = false)
-  private String password;
-
-  @Column
-  @OneToMany(mappedBy = "customer")
-  private List<Order> orders = new ArrayList<Order>();
-
-  public Customer(String name, String email, String password) {
+  public Category(String name) {
     setName(name);
-    setEmail(email);
-    setPassword(password);
   }
-  
-  public Customer() {}
+
+  public Category() {
+  }
 
   public UUID getId() {
     return id;
@@ -60,20 +52,12 @@ public class Customer implements Serializable {
     this.name = name;
   }
 
-  public String getEmail() {
-    return email;
+  public List<Product> getProducts() {
+    return products;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
+  public void setProducts(List<Product> products) {
+    this.products = products;
   }
 
   @Override
@@ -86,13 +70,13 @@ public class Customer implements Serializable {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj != null && obj instanceof Customer) {
-      Customer other = (Customer) obj;
+    if (obj != null && obj instanceof Category) {
+      Category other = (Category) obj;
       if(other.getId() == this.getId()) {
         return true;
       }
     } 
     return false;
   }
-}
 
+}
