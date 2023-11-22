@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nextboom.storeapi.entities.Customer;
+import com.nextboom.storeapi.exceptions.BadRequestException;
 import com.nextboom.storeapi.exceptions.NotFoundException;
 import com.nextboom.storeapi.repositories.CustomerRepository;
 
@@ -34,6 +35,12 @@ public class CustomerService {
   }
 
   public Customer create(Customer newCustomer) {
+    Optional<Customer> optionalCustomer = customerRepository.findOneByEmail(newCustomer.getEmail());
+
+    if(optionalCustomer.isPresent()) {
+      throw new BadRequestException("Usuario com esse email já existe!");
+    }
+
     Customer customer = customerRepository.save(newCustomer);
 
     return customer;

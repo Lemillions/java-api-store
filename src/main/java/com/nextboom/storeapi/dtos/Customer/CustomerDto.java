@@ -1,4 +1,4 @@
-package com.nextboom.storeapi.dtos;
+package com.nextboom.storeapi.dtos.Customer;
 
 import jakarta.validation.constraints.NotBlank;
 

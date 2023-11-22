@@ -1,8 +1,16 @@
 package com.nextboom.storeapi.entities;
 
-import java.io.Serializable;
 import java.util.UUID;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -15,7 +23,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_customer")
-public class Customer implements Serializable {
+public class Customer implements UserDetails {
   private static final long serialVersionUID = 1L;
   
   @Id
@@ -68,6 +76,7 @@ public class Customer implements Serializable {
     this.email = email;
   }
 
+  @JsonIgnore
   public String getPassword() {
     return password;
   }
@@ -93,6 +102,42 @@ public class Customer implements Serializable {
       }
     } 
     return false;
+  }
+
+  @JsonIgnore
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+  }
+
+  @JsonIgnore
+  @Override
+  public String getUsername() {
+    return getEmail();
+  }
+
+  @JsonIgnore
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @JsonIgnore
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @JsonIgnore
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @JsonIgnore
+  @Override
+  public boolean isEnabled() {
+    return true;
   }
 }
 

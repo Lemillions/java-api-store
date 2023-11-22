@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nextboom.storeapi.dtos.CustomerDto;
+import com.nextboom.storeapi.dtos.Customer.CustomerDto;
 import com.nextboom.storeapi.entities.Customer;
 import com.nextboom.storeapi.services.CustomerService;
 
