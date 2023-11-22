@@ -48,11 +48,11 @@ public class Order implements Serializable {
   @OneToMany(mappedBy = "order")
   private List<OrderItem> items = new ArrayList<OrderItem>();
 
-  public Order(Instant createdAt, OrderStatus orderStatus, Customer customer, List<OrderItem> items) {
-    this.createdAt = createdAt;
-    this.orderStatus = orderStatus;
-    this.customer = customer;
-    this.items = items;
+  public Order(OrderStatus orderStatus, Customer customer, List<OrderItem> items) {
+    setCreatedAt(Instant.now());
+    setOrderStatus(orderStatus);
+    setCustomer(customer);
+    setItems(items);
   }
 
   public Order() {
