@@ -41,7 +41,7 @@ public class Order implements Serializable {
   private OrderStatus orderStatus;
 
   @ManyToOne
-  @JoinColumn(name = "customer", nullable = false)
+  @JoinColumn(name = "customer_id", nullable = false)
   private Customer customer;
 
   @Column
